@@ -15,6 +15,8 @@ def test_filling_students_registration_form():
     browser.element('#userEmail-wrapper').should(have.text('Email'))
     browser.element('#userEmail').type('N5YF2@example.com')
     browser.element('#genterWrapper').should(have.text('Gender'))
-    # browser.element('input[value="Male"]').with_(timeout=browser.config.timeout*2).should(be.clickable).click()
-    # browser.element('input[value="Female"]').with_(timeout=browser.config.timeout*2).should(be.clickable).click()
-    # browser.element('input[value="Other"]').with_(timeout=browser.config.timeout*2).should(be.clickable).click()
+    gender_elements = browser.all('label[class="custom-control-label"]')
+    gender_elements[0].should(have.text('Male')).click()
+    gender_elements[1].should(have.text('Female')).click()
+    gender_elements[2].should(have.text('Other')).click()
+
