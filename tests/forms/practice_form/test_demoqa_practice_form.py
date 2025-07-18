@@ -82,7 +82,7 @@ def test_successful_filling_students_registration_form():
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Student Email')).all('td').second.should(have.text('test@example.com'))
     browser.all('table.table-dark tbody tr').element_by(
-        have.text('Gender')).all('td').second.should(have.text('Other')) # TODO! Почему-то не заполняется поле Gender
+        have.text('Gender')).all('td').second.should(have.text('Other'))
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Mobile')).all('td').second.should(have.text('8800255653'))
     browser.all('table.table-dark tbody tr').element_by(
