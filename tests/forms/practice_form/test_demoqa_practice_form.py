@@ -45,4 +45,12 @@ def test_successful_filling_students_registration_form():
     hobbies_elements[3].should(have.text('Sports')).click()
     hobbies_elements[4].should(have.text('Reading')).click()
     hobbies_elements[5].should(have.text('Music')).click()
+    # TODO! Form for "Pictures"
+    browser.element('#currentAddress-wrapper').should(have.text('Current Address'))
+    browser.element('#currentAddress').should(be.blank).type('Moscow')
+    browser.element('#stateCity-wrapper').should(have.text('State and City'))
+    browser.element('#state').click()
+    browser.element('#react-select-3-option-1').click()
+    browser.element('#city').click()
+    browser.element('#react-select-4-option-1').click()
 
