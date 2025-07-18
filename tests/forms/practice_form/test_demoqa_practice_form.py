@@ -85,7 +85,7 @@ def test_successful_filling_students_registration_form():
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
     """
-    Тут проверяем вывод данных в таблице, матчим ключ и значение построчно
+    Далее по коду проверяем вывод данных в таблице, матчим ключи и значения построчно
     """
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
