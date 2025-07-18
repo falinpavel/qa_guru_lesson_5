@@ -107,3 +107,11 @@ def test_successful_filling_students_registration_form():
         have.text('Address')).all('td').second.should(have.text('Moscow'))
     browser.all('table.table-dark tbody tr').element_by(
         have.text('State and City')).all('td').second.should(have.text('Uttar Pradesh Lucknow'))
+
+
+def test_with_empty_fields():
+    browser.open('/automation-practice-form')
+    browser.element('#submit').perform(command.js.scroll_into_view)
+    browser.element('#submit').click()
+    # проверка что жлемент не появляется
+    browser.element('#example-modal-sizes-title-lg').should(be.absent)
