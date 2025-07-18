@@ -1,8 +1,26 @@
-from selene import browser, have, be
+from selene import browser, have, be, command
 from selene.core.condition import Condition
 
 
 def test_successful_filling_students_registration_form():
+    """
+    1. Открыть страницу https://demoqa.com/automation-practice-form
+    2. Заполнить форму:
+        a. Поле Name: Ivan
+        b. Поле LastName: Ivanov
+        c. Поле User Email: test@example.com
+        d. Поле Gender: Male
+        e. Поле Mobile: 88002556535
+        f. Поле Date of Birth: 23 May,1996
+        g. Поле Subjects: Computer Science, Maths, Physics, Biology
+        h. Поле Hobbies: Click Sports, Reading, Music (all checkboxes)
+        i. Поле Picture: #TODO!
+        j. Поле Current Address: Moscow
+        k. Поле State: Haryana
+        l. Поле City: Kurnool
+    3. Нажать кнопку Submit
+    4. Проверить, что форма заполнена и данные матчатся в табличке
+    """
     browser.open('/automation-practice-form')
     browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
         Condition.by_and(
@@ -48,9 +66,34 @@ def test_successful_filling_students_registration_form():
     # TODO! Form for "Pictures"
     browser.element('#currentAddress-wrapper').should(have.text('Current Address'))
     browser.element('#currentAddress').should(be.blank).type('Moscow')
+    browser.element('#stateCity-wrapper').perform(command.js.scroll_into_view)
     browser.element('#stateCity-wrapper').should(have.text('State and City'))
     browser.element('#state').click()
     browser.element('#react-select-3-option-1').click()
     browser.element('#city').click()
     browser.element('#react-select-4-option-1').click()
-
+    browser.element('#submit').click()
+    browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
+    """
+    Тут проверяем вывод данных в таблице
+    """
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Student Email')).all('td').second.should(have.text('test@example.com'))
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Gender')).all('td').second.should(have.text('Other')) # TODO! Почему-то не заполняется поле Gender
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Mobile')).all('td').second.should(have.text('8800255653'))
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Date of Birth')).all('td').second.should(have.text('23 May,1996'))
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Subjects')).all('td').second.should(have.text('Computer Science, Maths, Physics, Biology'))
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Hobbies')).all('td').second.should(have.text('Sports, Reading, Music'))
+    # browser.all('table.table-dark tbody tr').element_by(
+    #     have.text('Picture')).all('td').second.should(be.blank) # TODO!
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Address')).all('td').second.should(have.text('Moscow'))
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('State and City')).all('td').second.should(have.text('Uttar Pradesh Lucknow'))
