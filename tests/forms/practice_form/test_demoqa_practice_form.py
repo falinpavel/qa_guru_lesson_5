@@ -1,5 +1,14 @@
+import os
 from selene import browser, have, be, command
 from selene.core.condition import Condition
+
+
+"""
+Путь к загружаемому файлу для теста
+"""
+file_path = os.path.join("utils", "file.txt")
+if not os.path.exists(file_path):
+    raise FileNotFoundError(f"Файл не найден: {file_path}")
 
 
 def test_successful_filling_students_registration_form():
@@ -16,10 +25,11 @@ def test_successful_filling_students_registration_form():
         h. Поле Hobbies: Click Sports, Reading, Music (all checkboxes)
         i. Поле Picture: #TODO!
         j. Поле Current Address: Moscow
-        k. Поле State: Haryana
-        l. Поле City: Kurnool
+        k. Поле State: Uttar
+        l. Поле City: Pradesh Lucknow
     3. Нажать кнопку Submit
-    4. Проверить, что форма заполнена и данные матчатся в табличке
+    4. Проверить, что форма заполнена и данные матчатся в табличке, проверяем построчно ключ - значение
+    5. Нажать кнопку Close
     """
     browser.open('/automation-practice-form')
     browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
@@ -63,7 +73,7 @@ def test_successful_filling_students_registration_form():
     hobbies_elements[3].should(have.text('Sports')).click()
     hobbies_elements[4].should(have.text('Reading')).click()
     hobbies_elements[5].should(have.text('Music')).click()
-    # TODO! Form for "Pictures"
+    browser.element('#uploadPicture').send_keys(os.path.abspath(file_path))
     browser.element('#currentAddress-wrapper').should(have.text('Current Address'))
     browser.element('#currentAddress').should(be.blank).type('Moscow')
     browser.element('#stateCity-wrapper').perform(command.js.scroll_into_view)
@@ -75,7 +85,7 @@ def test_successful_filling_students_registration_form():
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
     """
-    Тут проверяем вывод данных в таблице
+    Тут проверяем вывод данных в таблице, матчим ключ и значение построчно
     """
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
@@ -91,8 +101,8 @@ def test_successful_filling_students_registration_form():
         have.text('Subjects')).all('td').second.should(have.text('Computer Science, Maths, Physics, Biology'))
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Hobbies')).all('td').second.should(have.text('Sports, Reading, Music'))
-    # browser.all('table.table-dark tbody tr').element_by(
-    #     have.text('Picture')).all('td').second.should(be.blank) # TODO!
+    browser.all('table.table-dark tbody tr').element_by(
+        have.text('Picture')).all('td').second.should(have.text('file.txt'))
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Address')).all('td').second.should(have.text('Moscow'))
     browser.all('table.table-dark tbody tr').element_by(
