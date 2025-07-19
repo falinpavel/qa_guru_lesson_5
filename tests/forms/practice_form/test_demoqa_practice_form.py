@@ -7,8 +7,6 @@ from selene.core.condition import Condition
 Путь к загружаемому файлу для теста
 """
 file_path = os.path.join("utils", "file.txt")
-if not os.path.exists(file_path):
-    raise FileNotFoundError(f"Файл не найден: {file_path}")
 
 
 def test_successful_filling_students_registration_form():
