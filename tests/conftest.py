@@ -8,6 +8,6 @@ from selene import browser
 )
 def browser_open_and_quit(browser_options):
     browser.config.driver_options = browser_options
-    browser.open('https://demoqa.com/automation-practice-form')
+    browser.open('/automation-practice-form')
     yield
     browser.quit()

@@ -23,7 +23,7 @@ def test_successful_filling_students_registration_form():
         f. Поле Date of Birth: 23 May,1996
         g. Поле Subjects: Computer Science, Maths, Physics, Biology
         h. Поле Hobbies: Click Sports, Reading, Music (all checkboxes)
-        i. Поле Picture: #TODO!
+        i. Поле Picture: load file.txt from utils dir
         j. Поле Current Address: Moscow
         k. Поле State: Uttar
         l. Поле City: Pradesh Lucknow
@@ -31,7 +31,6 @@ def test_successful_filling_students_registration_form():
     4. Проверить, что форма заполнена и данные матчатся в табличке, проверяем построчно ключ - значение
     5. Нажать кнопку Close
     """
-    browser.open('/automation-practice-form')
     browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
         Condition.by_and(
             have.text('Practice Form'), have.text('Student Registration Form')
@@ -113,5 +112,4 @@ def test_with_empty_fields():
     browser.open('/automation-practice-form')
     browser.element('#submit').perform(command.js.scroll_into_view)
     browser.element('#submit').click()
-    # проверка что жлемент не появляется
     browser.element('#example-modal-sizes-title-lg').should(be.absent)
