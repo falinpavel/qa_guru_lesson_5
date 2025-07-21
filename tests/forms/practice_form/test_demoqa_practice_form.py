@@ -30,6 +30,7 @@ def test_successful_filling_students_registration_form():
      проверяем построчно ключ - значение
     5. Нажать кнопку "Close"
     """
+    browser.should(have.title('DEMOQA'))
     browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
         Condition.by_and(
             have.text('Practice Form'), have.text('Student Registration Form')
@@ -120,6 +121,7 @@ def test_with_empty_fields():
     4. Проверить что модальное окно "Thanks for submitting the form" не появляется,
          т.е. прошла проверка на обязательность полей
     """
+    browser.should(have.title('DEMOQA'))
     browser.element('#submit').perform(command.js.scroll_into_view)
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(be.absent)
