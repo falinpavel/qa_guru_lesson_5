@@ -3,10 +3,7 @@ from selene import browser
 from selenium import webdriver
 
 
-@pytest.fixture(
-    scope="session",
-    autouse=True
-)
+@pytest.fixture(scope="session",autouse=True)
 def browser_options():
     driver_options = webdriver.ChromeOptions()
     driver_options.page_load_strategy = 'eager'
