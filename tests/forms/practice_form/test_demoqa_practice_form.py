@@ -75,7 +75,8 @@ def test_successful_filling_students_registration_form():
     hobbies_elements[5].should(have.text('Music')).click().should(be.enabled)
     browser.element('#uploadPicture').send_keys(os.path.abspath(file_path))
     browser.element('#currentAddress-wrapper').should(have.text('Current Address'))
-    browser.element('#currentAddress').should(be.blank).type('Moscow')
+    browser.element('#currentAddress').should(be.blank).type('Moscow').should(be.not_.blank).should(
+        have.value('Moscow'))
     browser.element('#stateCity-wrapper').perform(command.js.scroll_into_view)
     browser.element('#stateCity-wrapper').should(have.text('State and City'))
     browser.element('#state').click()
