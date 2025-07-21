@@ -11,23 +11,24 @@ file_path = os.path.join("utils", "file.txt")
 
 def test_successful_filling_students_registration_form():
     """
-    1. Открыть страницу https://demoqa.com/automation-practice-form
+    1. Открыть страницу "https://demoqa.com/automation-practice-form"
     2. Заполнить форму:
-        a. Поле Name: Ivan
-        b. Поле LastName: Ivanov
-        c. Поле User Email: test@example.com
-        d. Поле Gender: Male
-        e. Поле Mobile: 88002556535
-        f. Поле Date of Birth: 23 May,1996
-        g. Поле Subjects: Computer Science, Maths, Physics, Biology
-        h. Поле Hobbies: Click Sports, Reading, Music (all checkboxes)
-        i. Поле Picture: load file.txt from utils dir
-        j. Поле Current Address: Moscow
-        k. Поле State: Uttar
-        l. Поле City: Pradesh Lucknow
-    3. Нажать кнопку Submit
-    4. Проверить, что форма заполнена и данные матчатся в табличке, проверяем построчно ключ - значение
-    5. Нажать кнопку Close
+        1.1. Поле "Name": Ivan
+        1.2. Поле "LastName": Ivanov
+        1.3. Поле "User" Email: test@example.com
+        1.4. Поле "Gender": Male
+        1.5. Поле "Mobile": 88002556535
+        1.6. Поле "Date of Birth": 23 May,1996
+        1.7. Поле "Subjects": Computer Science, Maths, Physics, Biology
+        1.8. Поле "Hobbies": Click Sports, Reading, Music (all checkboxes)
+        1.9. Поле "Picture": load file.txt from utils dir
+        1.10. Поле "Current Address": Moscow
+        1.11. Поле "State": Uttar
+        1.12. Поле "City": Pradesh Lucknow
+    3. Нажать кнопку "Submit"
+    4. Проверить, что форма заполнена и данные матчатся в табличке,
+     проверяем построчно ключ - значение
+    5. Нажать кнопку "Close"
     """
     browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
         Condition.by_and(
@@ -82,7 +83,8 @@ def test_successful_filling_students_registration_form():
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
     """
-    Далее по коду проверяем вывод данных в таблице, матчим ключи и значения построчно
+    Далее по коду идут проверки корректного заполнения формы,
+     матчим ключи и значения построчно
     """
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
@@ -107,6 +109,13 @@ def test_successful_filling_students_registration_form():
 
 
 def test_with_empty_fields():
+    """
+    1. Открыть страницу https://demoqa.com/automation-practice-form
+    2. Не заполняя формы скролить до кнопки "Submit"
+    3. Нажать кнопку "Submit"
+    4. Проверить что модальное окно "Thanks for submitting the form" не появляется,
+         т.е. прошла проверка на обязательность полей
+    """
     browser.open('/automation-practice-form')
     browser.element('#submit').perform(command.js.scroll_into_view)
     browser.element('#submit').click()
