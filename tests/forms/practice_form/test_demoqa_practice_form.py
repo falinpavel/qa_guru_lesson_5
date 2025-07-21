@@ -116,7 +116,6 @@ def test_with_empty_fields():
     4. Проверить что модальное окно "Thanks for submitting the form" не появляется,
          т.е. прошла проверка на обязательность полей
     """
-    browser.open('/automation-practice-form')
     browser.element('#submit').perform(command.js.scroll_into_view)
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(be.absent)
