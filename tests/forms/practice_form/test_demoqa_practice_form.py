@@ -62,6 +62,7 @@ def test_successful_filling_students_registration_form():
     browser.element('option[value="1996"]').with_(timeout=browser.config.timeout*2).should(be.visible).click()
     browser.element('.react-datepicker__year-select').click()
     browser.element('div[aria-label="Choose Thursday, May 23rd, 1996"]').click()
+    browser.element('#dateOfBirthInput').should(be.not_.blank).should(have.value('23 May 1996'))
     browser.element('#subjectsWrapper').should(have.text('Subjects'))
     subjects_field = browser.element('#subjectsInput')
     subjects_field.type('Computer Science').should(have.value('Computer Science')).press_enter()
