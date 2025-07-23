@@ -17,18 +17,15 @@ def test_success_submission_students_registration_form():
         1.2. Поле "LastName": Ivanov
         1.3. Поле "User" Email: test@example.com
         1.4. Поле "Gender": Male
-        1.5. Поле "Mobile": 88002556535
+        1.5. Поле "Mobile": 8800255653
         1.6. Поле "Date of Birth": 23 May,1996
-        1.7. Поле "Subjects": Computer Science, Maths, Physics, Biology
-        1.8. Поле "Hobbies": Click Sports, Reading, Music (all checkboxes)
-        1.9. Поле "Picture": load file.txt from utils dir
+        1.7. Поле "Subjects": Computer Science
+        1.8. Поле "Hobbies": Click Sports
+        1.9. Поле "Picture": load file.txt
         1.10. Поле "Current Address": Moscow
         1.11. Поле "State": Uttar
         1.12. Поле "City": Pradesh Lucknow
     3. Нажать кнопку "Submit"
-    4. Проверить, что форма заполнена и данные матчатся в табличке,
-     проверяем построчно ключ - значение
-    5. Нажать кнопку "Close"
     """
     browser.element('#firstName').should(be.blank).type('Ivan').should(be.not_.blank).should(
         have.attribute("value").value('Ivan'))
@@ -59,8 +56,10 @@ def test_success_submission_students_registration_form():
 
 def test_successful_completion_table():
     """
-    Проверки корректного заполнения формы,
-     матчим ключи и значения построчно
+    1. Открыть страницу "https://demoqa.com/automation-practice-form"
+    2. Заполнить форму (Шаги из test_success_submission_students_registration_form)
+    3. Нажать кнопку "Submit"
+    4. Проверки корректного заполнения формы,матчим ключи и значения построчно
     """
     test_success_submission_students_registration_form()
     table_element = browser.all('table.table-dark tbody tr')
@@ -79,10 +78,8 @@ def test_successful_completion_table():
 def test_submission_form_with_empty_fields():
     """
     1. Открыть страницу https://demoqa.com/automation-practice-form
-    2. Не заполняя формы скролить до кнопки "Submit"
-    3. Нажать кнопку "Submit"
-    4. Проверить что модальное окно "Thanks for submitting the form" не появляется,
-         т.е. прошла проверка на обязательность полей
+    2. Не заполняя формы нажать кнопку "Submit"
+    4. Проверить что модальное окно "Thanks for submitting the form" не появляется
     """
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(be.absent)
@@ -90,7 +87,8 @@ def test_submission_form_with_empty_fields():
 
 def test_check_texts_on_form():
     """
-    Проверяем тексты на форме
+    1. Открыть страницу https://demoqa.com/automation-practice-form
+    2. Проверяем тексты на форме для всех блоков
     """
     browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
         Condition.by_and(
