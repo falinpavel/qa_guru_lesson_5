@@ -34,7 +34,7 @@ def test_successful_filling_students_registration_form():
 
 
 def test_successful_filling_table():
-    test_success_filling_students_registration_form()
+    test_successful_filling_students_registration_form()
     table_element = browser.all('table.table-dark tbody tr')
     table_element.element_by(have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
     table_element.element_by(have.text('Student Email')).all('td').second.should(have.text('test@example.com'))
