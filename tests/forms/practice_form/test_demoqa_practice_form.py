@@ -90,7 +90,7 @@ def test_successful_filling_students_registration_form():
     """
     Далее по коду идут проверки корректного заполнения формы,
      матчим ключи и значения построчно
-    """
+    """ # TODO! Доделать
     browser.all('table.table-dark tbody tr').element_by(
         have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
     browser.all('table.table-dark tbody tr').element_by(
