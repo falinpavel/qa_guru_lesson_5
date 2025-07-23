@@ -1,6 +1,6 @@
 import os
-from selene import browser, have, be, command
-from selene.core.condition import Condition
+from selene import browser, have, be
+from datetime import datetime
 
 
 UPLOADED_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "file.txt")
@@ -54,22 +54,20 @@ def test_submission_form_with_empty_fields():
 
 
 def test_check_texts_on_form():
-    browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
-        Condition.by_and(
-            have.text('Practice Form'), have.text('Student Registration Form')
-        )
-    )
+    browser.element('.text-center').should(have.text('Practice Form'))
+    browser.element('.practice-form-wrapper h5').should(have.text('Student Registration Form'))
     browser.element('#userName-wrapper').should(have.exact_text('Name'))
-    browser.element('#userEmail-wrapper').should(have.exact_text('Email'))
+    browser.element('#firstName').should(have.attribute('placeholder').value('First Name'))
+    browser.element('#lastName').should(have.attribute('placeholder').value('Last Name'))
     browser.element('#genterWrapper').should(have.text('Gender'))
-    browser.element('#userNumber-label').should(
-        Condition.by_and(
-            have.text('Mobile'), have.text('(10 Digits)')
-        )
-    )
+    browser.all('.custom-radio').should(have.size(3)).should(have.exact_texts('Male', 'Female', 'Other'))
+    browser.element('#userNumber-label').should(have.text('Mobile')).element('small').should(have.text('(10 Digits)'))
     browser.element('#userNumber').should(have.attribute('placeholder').value('Mobile Number'))
     browser.element('#dateOfBirth-label').should(have.text('Date of Birth'))
+    browser.element('#dateOfBirthInput').should(have.attribute('value').value(datetime.now().strftime('%d %b %Y')))
     browser.element('#subjectsWrapper').should(have.text('Subjects'))
     browser.element('#hobbiesWrapper').should(have.text('Hobbies'))
+    browser.all('.custom-checkbox').should(have.size(3)).should(have.exact_texts('Sports', 'Reading', 'Music'))
     browser.element('#currentAddress-wrapper').should(have.text('Current Address'))
+    browser.element('#currentAddress').should(have.attribute('placeholder').value('Current Address'))
     browser.element('#stateCity-wrapper').should(have.text('State and City'))
