@@ -6,7 +6,7 @@ from datetime import datetime
 UPLOADED_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "file.txt")
 
 
-def test_success_submission_students_registration_form():
+def test_successful_filling_students_registration_form():
     browser.element('#firstName').should(be.blank).type('Ivan').should(be.not_.blank).should(
         have.attribute("value").value('Ivan'))
     browser.element('#lastName').should(be.blank).type('Ivanov').should(be.not_.blank).should(
@@ -34,7 +34,7 @@ def test_success_submission_students_registration_form():
 
 
 def test_successful_filling_table():
-    test_success_submission_students_registration_form()
+    test_success_filling_students_registration_form()
     table_element = browser.all('table.table-dark tbody tr')
     table_element.element_by(have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
     table_element.element_by(have.text('Student Email')).all('td').second.should(have.text('test@example.com'))
