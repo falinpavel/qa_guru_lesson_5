@@ -13,8 +13,7 @@ def test_success_submission_students_registration_form():
         have.attribute("value").value('Ivanov'))
     browser.element('#userEmail').should(be.blank).type('test@example.com').should(be.not_.blank).should(
         have.attribute("value").value('test@example.com'))
-    browser.all('[name=gender]').element_by(
-        have.attribute('value').value('Male')).element('..').click().should(be.enabled)
+    browser.element('label[for="gender-radio-1"]').click().should(be.enabled)
     browser.element('#userNumber').should(be.blank).send_keys('8800255653').should(be.not_.blank).should(
         have.attribute("value").value('8800255653'))
     browser.element('#dateOfBirthInput').click()
