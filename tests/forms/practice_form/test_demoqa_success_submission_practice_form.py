@@ -1,7 +1,6 @@
 import os
 from selene import browser, have, be
 from datetime import datetime
-
 from selene.support.shared.jquery_style import s, ss
 
 UPLOADED_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "file.txt")
