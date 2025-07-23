@@ -11,3 +11,11 @@ def browser_options():
     # driver_options.add_argument('--headless')
     browser.config.base_url = 'https://demoqa.com'
     return driver_options
+
+
+@pytest.fixture(scope="function",autouse=True)
+def browser_open_and_quit(browser_options):
+    browser.config.driver_options = browser_options
+    browser.open('/automation-practice-form')
+    yield
+    browser.quit()
