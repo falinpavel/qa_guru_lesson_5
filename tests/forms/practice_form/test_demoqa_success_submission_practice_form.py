@@ -3,30 +3,10 @@ from selene import browser, have, be, command
 from selene.core.condition import Condition
 
 
-"""
-Путь к загружаемому файлу для теста
-"""
 UPLOADED_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "file.txt")
 
 
 def test_success_submission_students_registration_form():
-    """
-    1. Открыть страницу "https://demoqa.com/automation-practice-form"
-    2. Заполнить форму:
-        1.1. Поле "Name": Ivan
-        1.2. Поле "LastName": Ivanov
-        1.3. Поле "User" Email: test@example.com
-        1.4. Поле "Gender": Male
-        1.5. Поле "Mobile": 8800255653
-        1.6. Поле "Date of Birth": 23 May,1996
-        1.7. Поле "Subjects": Computer Science
-        1.8. Поле "Hobbies": Click Sports
-        1.9. Поле "Picture": load file.txt
-        1.10. Поле "Current Address": Moscow
-        1.11. Поле "State": Uttar
-        1.12. Поле "City": Pradesh Lucknow
-    3. Нажать кнопку "Submit"
-    """
     browser.element('#firstName').should(be.blank).type('Ivan').should(be.not_.blank).should(
         have.attribute("value").value('Ivan'))
     browser.element('#lastName').should(be.blank).type('Ivanov').should(be.not_.blank).should(
@@ -55,12 +35,6 @@ def test_success_submission_students_registration_form():
 
 
 def test_successful_completion_table():
-    """
-    1. Открыть страницу "https://demoqa.com/automation-practice-form"
-    2. Заполнить форму (Шаги из test_success_submission_students_registration_form)
-    3. Нажать кнопку "Submit"
-    4. Проверки корректного заполнения формы,матчим ключи и значения построчно
-    """
     test_success_submission_students_registration_form()
     table_element = browser.all('table.table-dark tbody tr')
     table_element.element_by(have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
@@ -76,20 +50,11 @@ def test_successful_completion_table():
 
 
 def test_submission_form_with_empty_fields():
-    """
-    1. Открыть страницу https://demoqa.com/automation-practice-form
-    2. Не заполняя формы нажать кнопку "Submit"
-    4. Проверить что модальное окно "Thanks for submitting the form" не появляется
-    """
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(be.absent)
 
 
 def test_check_texts_on_form():
-    """
-    1. Открыть страницу https://demoqa.com/automation-practice-form
-    2. Проверяем тексты на форме для всех блоков
-    """
     browser.element('.practice-form-wrapper').with_(timeout=browser.config.timeout*2).should(
         Condition.by_and(
             have.text('Practice Form'), have.text('Student Registration Form')
