@@ -33,7 +33,7 @@ def test_success_submission_students_registration_form():
     browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
 
 
-def test_successful_completion_table():
+def test_successful_filling_table():
     test_success_submission_students_registration_form()
     table_element = browser.all('table.table-dark tbody tr')
     table_element.element_by(have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
