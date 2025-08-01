@@ -1,14 +1,22 @@
 import pytest
+import selene
+from selene.support.shared import browser
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+
+@pytest.fixture(scope="session",autouse=True)
+def browser_options():
+    driver_options = webdriver.ChromeOptions()
+    driver_options.page_load_strategy = 'eager'
+    driver_options.add_argument('--window-size=1920,1080')
+    browser.config.base_url = 'https://demoqa.com'
+    return driver_options
 
 
 @pytest.fixture(scope="function",autouse=True)
-def driver(request):
-    options = webdriver.ChromeOptions()
-    options.page_load_strategy = 'eager'
-    options.add_argument('--window-size=1920,1080')
-    options.add_argument("--disable-dev-shm-usage")
-    driver = webdriver.Chrome(options=options)
-    request.cls.driver = driver
-    yield driver
-    driver.quit()
+def browser_open_and_quit(browser_options):
+    browser.config.driver_options = browser_options
+    browser.open('/automation-practice-form')
+    yield
+    browser.quit()

@@ -4,9 +4,10 @@ from const import UPLOADED_FILE
 
 class PagePracticeForm(BasePage):
 
+
     FILE = UPLOADED_FILE
 
     URL = '/automation-practice-form'
 
     def open_page(self):
-        self.driver.open(self.URL)
+        self.browser.open(self.URL)

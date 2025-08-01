@@ -8,7 +8,7 @@ from base.base_test import BaseTest
 class TestPracticeForm(BaseTest):
 
     def test_success_submission_students_registration_form(self):
-        self.page_practice_form.open()
+        self.page_practice_form.open_page()
         # browser.element('#firstName').should(be.blank).type('Ivan').should(be.not_.blank).should(
         #     have.attribute("value").value('Ivan'))
         # browser.element('#lastName').should(be.blank).type('Ivanov').should(be.not_.blank).should(
