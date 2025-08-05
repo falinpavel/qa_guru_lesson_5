@@ -3,38 +3,38 @@ from pages.forms.practice_form.page_practice_form import PracticeFormPage
 
 class TestPracticeForm(PracticeFormPage):
 
-    def test_success_submission_practice_form(self):
-        self.open_page()
-        self.type_first_name(first_name='Ivan')
-        self.type_last_name(last_name='Ivanov')
-        self.type_user_email(user_email='test@example.com')
-        self.choose_gender('Male')
-        self.send_keys_user_number(user_number='8800255653')
-        self.enable_date_of_birth()
-        self.type_subjects('Computer Science')
-        self.choose_hobbies('Sports')
-        self.upload_file()
-        self.type_current_address(address='Moscow')
-        self.choose_state_and_city()
-        self.submit_form()
-        self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=False)
+    def test_success_submission_practice_form(self, practice_form_page):
+        practice_form_page.open_page()
+        practice_form_page.type_first_name(first_name='Ivan')
+        practice_form_page.type_last_name(last_name='Ivanov')
+        practice_form_page.type_user_email(user_email='test@example.com')
+        practice_form_page.choose_gender('Male')
+        practice_form_page.send_keys_user_number(user_number='8800255653')
+        practice_form_page.enable_date_of_birth()
+        practice_form_page.type_subjects('Computer Science')
+        practice_form_page.choose_hobbies('Sports')
+        practice_form_page.upload_file()
+        practice_form_page.type_current_address(address='Moscow')
+        practice_form_page.choose_state_and_city()
+        practice_form_page.submit_form()
+        practice_form_page.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=False)
 
-    def test_successful_filling_table_practice_form(self):
-        self.open_page()
-        self.type_first_name(first_name='Elena')
-        self.type_last_name(last_name='Sidorova')
-        self.type_user_email(user_email='Elena123@example.com')
-        self.choose_gender('Female')
-        self.send_keys_user_number(user_number='8800255612')
-        self.enable_date_of_birth()
-        self.type_subjects('Maths', 'English')
-        self.choose_hobbies('Music')
-        self.upload_file()
-        self.type_current_address(address='Krasnodar')
-        self.choose_state_and_city()
-        self.submit_form()
-        self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=False)
-        self.should_table_be_filled(
+    def test_successful_filling_table_practice_form(self, practice_form_page):
+        practice_form_page.open_page()
+        practice_form_page.type_first_name(first_name='Elena')
+        practice_form_page.type_last_name(last_name='Sidorova')
+        practice_form_page.type_user_email(user_email='Elena123@example.com')
+        practice_form_page.choose_gender('Female')
+        practice_form_page.send_keys_user_number(user_number='8800255612')
+        practice_form_page.enable_date_of_birth()
+        practice_form_page.type_subjects('Maths', 'English')
+        practice_form_page.choose_hobbies('Music')
+        practice_form_page.upload_file()
+        practice_form_page.type_current_address(address='Krasnodar')
+        practice_form_page.choose_state_and_city()
+        practice_form_page.submit_form()
+        practice_form_page.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=False)
+        practice_form_page.should_table_be_filled(
             full_name='Elena Sidorova',
             user_email='Elena123@example.com',
             gender='Female',
@@ -47,14 +47,14 @@ class TestPracticeForm(PracticeFormPage):
             state_and_city='Uttar Pradesh Lucknow'
         )
 
-    def test_submission_form_with_empty_fields(self):
-        self.open_page()
-        self.submit_form()
-        self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=True)
+    def test_submission_form_with_empty_fields(self, practice_form_page):
+        practice_form_page.open_page()
+        practice_form_page.submit_form()
+        practice_form_page.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=True)
 
-    def test_check_texts_on_form(self):
-        self.open_page()
-        self.should_all_texts_into_form(
+    def test_check_texts_on_form(self, practice_form_page):
+        practice_form_page.open_page()
+        practice_form_page.should_all_texts_into_form(
             center_text='Practice Form',
             form_text_label='Student Registration Form',
             name_text_label='Name',
