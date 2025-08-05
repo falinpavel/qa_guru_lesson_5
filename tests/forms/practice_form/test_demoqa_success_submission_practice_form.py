@@ -21,29 +21,29 @@ class TestPracticeForm(PracticeFormPage):
 
     def test_successful_filling_table_practice_form(self):
         self.open_page()
-        self.type_first_name(first_name='Ivan')
-        self.type_last_name(last_name='Ivanov')
-        self.type_user_email(user_email='test@example.com')
-        self.choose_gender('Male')
-        self.send_keys_user_number(user_number='8800255653')
+        self.type_first_name(first_name='Elena')
+        self.type_last_name(last_name='Sidorova')
+        self.type_user_email(user_email='Elena123@example.com')
+        self.choose_gender('Female')
+        self.send_keys_user_number(user_number='8800255612')
         self.enable_date_of_birth()
-        self.type_subjects('Computer Science')
-        self.choose_hobbies('Sports')
+        self.type_subjects('Maths', 'English')
+        self.choose_hobbies('Music')
         self.upload_file()
-        self.type_current_address(address='Moscow')
+        self.type_current_address(address='Krasnodar')
         self.choose_state_and_city()
         self.submit_form()
         self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=False)
         self.should_table_be_filled(
-            full_name='Ivan Ivanov',
-            user_email='test@example.com',
-            gender='Male',
-            user_number='8800255653',
+            full_name='Elena Sidorova',
+            user_email='Elena123@example.com',
+            gender='Female',
+            user_number='8800255612',
             date_of_birth='23 May,1996',
-            subjects='Computer Science',
-            hobbies='Sports',
+            subjects='Maths, English',
+            hobbies='Music',
             file='file.txt',
-            current_address='Moscow',
+            current_address='Krasnodar',
             state_and_city='Uttar Pradesh Lucknow'
         )
 
@@ -52,22 +52,28 @@ class TestPracticeForm(PracticeFormPage):
         self.submit_form()
         self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=True)
 
-    # def test_check_texts_on_form(self):
-    #     browser.element('.text-center').should(have.text('Practice Form'))
-    #     browser.element('.practice-forms-wrapper h5').should(have.text('Student Registration Form'))
-    #     browser.element('#userName-wrapper').should(have.exact_text('Name'))
-    #     browser.element('#firstName').should(have.attribute('placeholder').value('First Name'))
-    #     browser.element('#lastName').should(have.attribute('placeholder').value('Last Name'))
-    #     browser.element('#genterWrapper').should(have.text('Gender'))
-    #     browser.all('.custom-radio').should(have.size(3)).should(have.exact_texts('Male', 'Female', 'Other'))
-    #     browser.element('#userNumber-label').should(have.text('Mobile')).element('small').should(
-    #         have.text('(10 Digits)'))
-    #     browser.element('#userNumber').should(have.attribute('placeholder').value('Mobile Number'))
-    #     browser.element('#dateOfBirth-label').should(have.text('Date of Birth'))
-    #     browser.element('#dateOfBirthInput').should(have.attribute('value').value(datetime.now().strftime('%d %b %Y')))
-    #     browser.element('#subjectsWrapper').should(have.text('Subjects'))
-    #     browser.element('#hobbiesWrapper').should(have.text('Hobbies'))
-    #     browser.all('.custom-checkbox').should(have.size(3)).should(have.exact_texts('Sports', 'Reading', 'Music'))
-    #     browser.element('#currentAddress-wrapper').should(have.text('Current Address'))
-    #     browser.element('#currentAddress').should(have.attribute('placeholder').value('Current Address'))
-    #     browser.element('#stateCity-wrapper').should(have.text('State and City'))
+    def test_check_texts_on_form(self):
+        self.open_page()
+        self.should_all_texts_into_form(
+            center_text='Practice Form',
+            form_text_label='Student Registration Form',
+            name_text_label='Name',
+            first_name_placeholder='First Name',
+            last_name_placeholder='Last Name',
+            gender_text_label='Gender',
+            gender_text_male='Male',
+            gender_text_female='Female',
+            gender_text_other='Other',
+            number_text_label='Mobile',
+            number_text_small='(10 Digits)',
+            number_placeholder='Mobile Number',
+            birthday_text_label='Date of Birth',
+            subjects_text_label='Subjects',
+            hobbies_text_label='Hobbies',
+            hobbies_text_sport='Sports',
+            hobbies_text_reed='Reading',
+            hobbies_text_music='Music',
+            address_text_label='Current Address',
+            address_placeholder='Current Address',
+            state_city_text_label='State and City'
+        )
