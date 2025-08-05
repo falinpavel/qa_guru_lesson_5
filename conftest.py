@@ -1,11 +1,10 @@
 import pytest
-import selene
+
 from selene.support.shared import browser
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 
-@pytest.fixture(scope="session",autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def browser_options():
     driver_options = webdriver.ChromeOptions()
     driver_options.page_load_strategy = 'eager'
@@ -14,7 +13,7 @@ def browser_options():
     return driver_options
 
 
-@pytest.fixture(scope="function",autouse=True)
+@pytest.fixture(scope="function", autouse=True)
 def browser_open_and_quit(browser_options):
     browser.config.driver_options = browser_options
     browser.open('/automation-practice-form')

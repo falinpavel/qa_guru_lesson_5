@@ -1,58 +1,57 @@
-import os
-
-from selene import browser, have, be
-from datetime import datetime
-from base.base_test import BaseTest
+from pages.forms.practice_form.page_practice_form import PracticeFormPage
 
 
-class TestPracticeForm(BaseTest):
+class TestPracticeForm(PracticeFormPage):
 
-    def test_success_submission_students_registration_form(self):
-        self.page_practice_form.open_page()
-        # browser.element('#firstName').should(be.blank).type('Ivan').should(be.not_.blank).should(
-        #     have.attribute("value").value('Ivan'))
-        # browser.element('#lastName').should(be.blank).type('Ivanov').should(be.not_.blank).should(
-        #     have.attribute("value").value('Ivanov'))
-        # browser.element('#userEmail').should(be.blank).type('test@example.com').should(be.not_.blank).should(
-        #     have.attribute("value").value('test@example.com'))
-        # browser.element('label[for="gender-radio-1"]').click().should(be.enabled)
-        # browser.element('#userNumber').should(be.blank).send_keys('8800255653').should(be.not_.blank).should(
-        #     have.attribute("value").value('8800255653'))
-        # browser.element('#dateOfBirthInput').click()
-        # browser.element('.react-datepicker__month-select').click().element('option[value="4"]').click()
-        # browser.element('.react-datepicker__year-select').click().element('option[value="1996"]').click()
-        # browser.element('div[aria-label="Choose Thursday, May 23rd, 1996"]').click()
-        # browser.element('#dateOfBirthInput').should(be.not_.blank).should(have.attribute("value").value('23 May 1996'))
-        # browser.element('#subjectsInput').type('Computer Science').should(
-        #     have.attribute("value").value('Computer Science')).press_enter()
-        # browser.all('label[class="custom-control-label"]').element_by(have.text('Sports')).click().should(be.enabled)
-        # browser.element('#uploadPicture').send_keys(os.path.abspath(UPLOADED_FILE))
-        # browser.element('#currentAddress').should(be.blank).type('Moscow').should(be.not_.blank).should(
-        #     have.attribute("value").value('Moscow'))
-        # browser.element('#state').click().element('#react-select-3-option-1').click()
-        # browser.element('#city').click().element('#react-select-4-option-1').click()
-        # browser.element('#submit').click()
-        # browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the forms'))
+    def test_success_submission_practice_form(self):
+        self.open_page()
+        self.type_first_name(first_name='Ivan')
+        self.type_last_name(last_name='Ivanov')
+        self.type_user_email(user_email='test@example.com')
+        self.choose_gender('Male')
+        self.send_keys_user_number(user_number='8800255653')
+        self.enable_date_of_birth()
+        self.type_subjects('Computer Science')
+        self.choose_hobbies('Sports')
+        self.upload_file()
+        self.type_current_address(address='Moscow')
+        self.choose_state_and_city()
+        self.submit_form()
+        self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=False)
 
-    # def test_successful_filling_table(self):
-    #     # test_success_submission_students_registration_form()
-    #     table_element = browser.all('table.table-dark tbody tr')
-    #     table_element.element_by(have.text('Student Name')).all('td').second.should(have.text('Ivan Ivanov'))
-    #     table_element.element_by(have.text('Student Email')).all('td').second.should(have.text('test@example.com'))
-    #     table_element.element_by(have.text('Gender')).all('td').second.should(have.text('Male'))
-    #     table_element.element_by(have.text('Mobile')).all('td').second.should(have.text('8800255653'))
-    #     table_element.element_by(have.text('Date of Birth')).all('td').second.should(have.text('23 May,1996'))
-    #     table_element.element_by(have.text('Subjects')).all('td').second.should(have.text('Computer Science'))
-    #     table_element.element_by(have.text('Hobbies')).all('td').second.should(have.text('Sports'))
-    #     table_element.element_by(have.text('Picture')).all('td').second.should(have.text('file.txt'))
-    #     table_element.element_by(have.text('Address')).all('td').second.should(have.text('Moscow'))
-    #     table_element.element_by(have.text('State and City')).all('td').second.should(
-    #         have.text('Uttar Pradesh Lucknow'))
-    #
-    # def test_submission_form_with_empty_fields(self):
-    #     browser.element('#submit').click()
-    #     browser.element('#example-modal-sizes-title-lg').should(be.absent)
-    #
+    def test_successful_filling_table_practice_form(self):
+        self.open_page()
+        self.type_first_name(first_name='Ivan')
+        self.type_last_name(last_name='Ivanov')
+        self.type_user_email(user_email='test@example.com')
+        self.choose_gender('Male')
+        self.send_keys_user_number(user_number='8800255653')
+        self.enable_date_of_birth()
+        self.type_subjects('Computer Science')
+        self.choose_hobbies('Sports')
+        self.upload_file()
+        self.type_current_address(address='Moscow')
+        self.choose_state_and_city()
+        self.submit_form()
+        self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=False)
+        self.should_table_be_filled(
+            full_name='Ivan Ivanov',
+            user_email='test@example.com',
+            gender='Male',
+            user_number='8800255653',
+            date_of_birth='23 May,1996',
+            subjects='Computer Science',
+            hobbies='Sports',
+            file='file.txt',
+            current_address='Moscow',
+            state_and_city='Uttar Pradesh Lucknow'
+        )
+
+    def test_submission_form_with_empty_fields(self):
+        self.open_page()
+        self.submit_form()
+        self.should_form_be_submitted(message='Thanks for submitting the form', no_submitted=True)
+
     # def test_check_texts_on_form(self):
     #     browser.element('.text-center').should(have.text('Practice Form'))
     #     browser.element('.practice-forms-wrapper h5').should(have.text('Student Registration Form'))
